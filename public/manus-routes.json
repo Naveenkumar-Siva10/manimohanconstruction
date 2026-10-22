@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "site": "Mani Mohan Construction",
+  "framework": "nextjs",
+  "routes": [
+    {
+      "path": "/",
+      "name": "Home",
+      "title": "Mani Mohan Construction \u2014 Building Dreams. Creating Legacies.",
+      "type": "static",
+      "sections": [
+        {
+          "id": "home",
+          "name": "Home \u2014 full-screen scroll-scrubbed build sequence with 3D typography",
+          "component": "components/HeroSection.tsx"
+        },
+        {
+          "id": "about",
+          "name": "About Us",
+          "component": "components/AboutSection.tsx"
+        },
+        {
+          "id": "services",
+          "name": "Services",
+          "component": "components/ServicesSection.tsx"
+        },
+        {
+          "id": "goals",
+          "name": "Our Goals",
+          "component": "components/GoalsSection.tsx"
+        },
+        {
+          "id": "vision",
+          "name": "Our Vision",
+          "component": "components/VisionSection.tsx"
+        },
+        {
+          "id": "projects",
+          "name": "Projects",
+          "component": "components/ProjectsSection.tsx"
+        },
+        {
+          "id": "contact",
+          "name": "Contact",
+          "component": "components/ContactSection.tsx"
+        }
+      ]
+    }
+  ],
+  "config": "lib/site.ts",
+  "content": "lib/content.ts",
+  "assets": {
+    "about": "/assets/about",
+    "services": "/assets/services",
+    "projects": "/assets/projects",
+    "font3d": "/assets/fonts/fraunces-display.typeface.json",
+    "frames": "/assets/frames"
+  }
+}
