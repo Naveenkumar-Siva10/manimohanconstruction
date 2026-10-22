@@ -1,3 +1,4 @@
+import Button from "@/components/ui/Button";
 import LogoMark from "@/components/ui/LogoMark";
 import ParallaxImage from "@/components/ui/ParallaxImage";
 import Reveal from "@/components/ui/Reveal";
@@ -61,6 +62,10 @@ export default function AboutSection() {
               </Reveal>
             ))}
           </ul>
+
+          <Reveal delay={420}>
+            <Button href="/about" label="More about us" variant="outline" className="mt-10" />
+          </Reveal>
         </div>
 
         <figure className="relative lg:col-span-5 lg:col-start-8">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, type AnchorHTMLAttributes, type ReactNode } from "react";
+import Link from "next/link";
 
 export type ButtonVariant = "primary" | "blush" | "outline" | "glass";
 
@@ -50,8 +51,12 @@ export default function Button({ href, label, variant = "primary", size = "md", 
     if (ref.current) ref.current.style.transform = "";
   };
 
+  // Site routes go through next/link (client navigation, prefetching);
+  // tel:, mailto:, WhatsApp and in-page #anchors stay plain links.
+  const Anchor = href.startsWith("/") ? Link : "a";
+
   return (
-    <a
+    <Anchor
       ref={ref}
       href={href}
       className={`btn ${VARIANT[variant]} ${size === "sm" ? "btn-sm" : ""} ${className}`}
@@ -65,6 +70,6 @@ export default function Button({ href, label, variant = "primary", size = "md", 
         <span>{label}</span>
       </span>
       {icon !== false && <span className="btn-icon">{icon ?? <ArrowIcon />}</span>}
-    </a>
+    </Anchor>
   );
 }

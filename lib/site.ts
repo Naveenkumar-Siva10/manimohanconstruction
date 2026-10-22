@@ -19,6 +19,12 @@ export const SITE = {
   description:
     "Mani Mohan Construction is a family-run construction company in Chennai with 27+ years of experience and 100+ buildings completed — quality house, apartment and commercial construction with honest service and reliable project execution.",
   footerDescription: "Quality construction, trusted service and a family legacy built with care.",
+  /**
+   * Public address of the live site (no trailing slash), used for canonical
+   * URLs, the sitemap and social previews. Set NEXT_PUBLIC_SITE_URL in the
+   * hosting environment once the domain is live.
+   */
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, ""),
 } as const;
 
 export const COLORS = {
@@ -38,22 +44,32 @@ export const COLORS = {
   line: "#E7E1DA",
 } as const;
 
-/** Main navigation, in page order. `href` values are in-page section anchors. */
+/** Main navigation, in order. Services also opens a menu of every service page. */
 export const NAV = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About Us" },
-  { href: "#services", label: "Services" },
-  { href: "#goals", label: "Our Goals" },
-  { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
+  { href: "/services", label: "Services" },
+  { href: "/projects", label: "Projects" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
-export const FOOTER_NAV = NAV.filter((item) => item.href !== "#home");
+/** Footer "Company" column. */
+export const FOOTER_NAV = [
+  { href: "/about", label: "About Us" },
+  { href: "/services", label: "Services" },
+  { href: "/projects", label: "Projects" },
+  { href: "/careers", label: "Careers" },
+  { href: "/contact", label: "Contact" },
+  { href: "/privacy-policy", label: "Privacy Policy" },
+] as const;
 
 export const CTA = {
-  primary: { href: "#contact", label: "Start Your Project" },
-  secondary: { href: "#services", label: "View Our Services" },
+  primary: { href: "/contact", label: "Start Your Project" },
+  secondary: { href: "/services", label: "View Our Services" },
 } as const;
+
+/** Areas we can name with confidence (current and recent sites). */
+export const SERVICE_AREAS = ["Saidapet", "Thoraipakkam", "Kundrathur"] as const;
 
 /**
  * ----------------------------------------------------------------------------
@@ -79,7 +95,7 @@ export const CONTACT = {
 export const isPlaceholder = (value: string) => /X{3,}|example\.com|\[EDIT\]/i.test(value);
 
 /** Fallback target for buttons whose contact detail isn't filled in yet. */
-const DETAILS_ANCHOR = "#contact-details";
+const DETAILS_ANCHOR = "/contact#contact-details";
 
 export const contactLinks = {
   call: isPlaceholder(CONTACT.phone) ? DETAILS_ANCHOR : `tel:${CONTACT.phone.replace(/[^\d+]/g, "")}`,

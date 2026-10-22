@@ -17,14 +17,14 @@ const TONES = [
  * as the page scrolls every new card slides up over the previous one and
  * leaves its edge peeking out. Pure CSS — no scroll listeners.
  */
-export default function GoalsSection() {
+export default function GoalsSection({ label = GOALS_INTRO.label }: { label?: string }) {
   return (
     <section id="goals" aria-labelledby="goals-title" className="scroll-mt-16 bg-paper py-24 md:py-36">
       <div className="container-site grid gap-12 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
             <Reveal>
-              <SectionLabel>{GOALS_INTRO.label}</SectionLabel>
+              <SectionLabel>{label}</SectionLabel>
             </Reveal>
             <SplitText id="goals-title" text={GOALS_INTRO.title} className="mt-7 font-display heading-xl text-ink" />
             <Reveal delay={120}>

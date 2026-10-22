@@ -1,11 +1,15 @@
 import type { CSSProperties } from "react";
 import type { Metadata, Viewport } from "next";
 import { Archivo, Instrument_Serif, Manrope } from "next/font/google";
+import FloatingActions from "@/components/FloatingActions";
 import Preloader from "@/components/Preloader";
 import ScrollProgress from "@/components/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
+import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
-import { COLORS, SITE } from "@/lib/site";
+import JsonLd from "@/components/page/JsonLd";
+import { SERVICES } from "@/lib/services";
+import { COLORS, CONTACT, SERVICE_AREAS, SITE, isPlaceholder } from "@/lib/site";
 import "./globals.css";
 
 const display = Archivo({
@@ -32,7 +36,8 @@ const accent = Instrument_Serif({
 const title = `${SITE.name} — ${SITE.tagline}`;
 
 export const metadata: Metadata = {
-  title: { default: title, template: `%s — ${SITE.name}` },
+  metadataBase: new URL(SITE.url),
+  title: { default: title, template: `%s | ${SITE.name}` },
   description: SITE.description,
   applicationName: SITE.name,
   openGraph: {
@@ -41,8 +46,27 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     type: "website",
     locale: "en_IN",
+    url: "/",
+    images: [{ url: "/assets/projects/ongoing/thoraipakkam-front.jpg", width: 2400, height: 1350, alt: "A Mani Mohan Construction building under construction in Thoraipakkam, Chennai" }],
   },
   twitter: { card: "summary_large_image", title, description: SITE.description },
+};
+
+/** The business, for search engines. Contact fields are added once they're real. */
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  "@id": `${SITE.url}/#business`,
+  name: SITE.name,
+  description: SITE.description,
+  url: SITE.url,
+  logo: `${SITE.url}/icon.svg`,
+  image: `${SITE.url}/assets/projects/ongoing/thoraipakkam-front.jpg`,
+  address: { "@type": "PostalAddress", addressLocality: SITE.city, addressRegion: "Tamil Nadu", addressCountry: "IN" },
+  areaServed: [SITE.city, ...SERVICE_AREAS].map((name) => ({ "@type": "Place", name })),
+  knowsAbout: SERVICES.map((s) => s.title),
+  ...(isPlaceholder(CONTACT.phone) ? {} : { telephone: CONTACT.phone }),
+  ...(isPlaceholder(CONTACT.email) ? {} : { email: CONTACT.email }),
 };
 
 export const viewport: Viewport = {
@@ -73,7 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
-      <body className="bg-paper font-sans text-ink antialiased">
+      <body id="top" className="bg-paper font-sans text-ink antialiased">
         <a href="#main" className="skip-link">
           Skip to content
         </a>
@@ -82,7 +106,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ScrollProgress />
           <SiteHeader />
           {children}
+          <SiteFooter />
         </SmoothScroll>
+        <FloatingActions />
+        <JsonLd data={businessSchema} />
       </body>
     </html>
   );

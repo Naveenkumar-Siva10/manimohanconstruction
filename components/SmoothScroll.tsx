@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 import { LOADED_EVENT } from "@/components/Preloader";
@@ -21,6 +22,16 @@ const HEADER_OFFSET = 88;
  */
 export default function SmoothScroll({ children }: { children: ReactNode }) {
   const reducedMotion = usePrefersReducedMotion();
+  const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
+
+  // New page: jump to the top (or to the #hash target) without animating.
+  useEffect(() => {
+    const lenis = lenisRef.current;
+    if (!lenis) return;
+    const target = location.hash ? document.getElementById(location.hash.slice(1)) : null;
+    lenis.scrollTo(target ?? 0, { immediate: true, force: true, offset: target ? -HEADER_OFFSET : 0 });
+  }, [pathname]);
 
   useEffect(() => {
     if (reducedMotion) return;
@@ -31,6 +42,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       smoothWheel: true,
       autoRaf: false,
     });
+    lenisRef.current = lenis;
 
     // Hold still under the preloader; release when it lifts.
     const onLoaded = () => lenis.start();
@@ -76,6 +88,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       window.removeEventListener(LOADED_EVENT, onLoaded);
       cancelAnimationFrame(raf);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, [reducedMotion]);
 

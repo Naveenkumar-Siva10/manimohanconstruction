@@ -41,7 +41,10 @@ function ProjectText({ project, tone = "dark", headingId }: { project: OngoingPr
         <PinIcon />
         {project.type}
       </p>
-      <h3 id={headingId} className={`mt-3 font-display text-[clamp(2rem,3.6vw,3.25rem)] leading-none ${tone === "light" ? "text-paper" : "text-ink"}`}>
+      <h3
+        id={headingId}
+        className={`mt-3 font-display text-[clamp(2rem,3.6vw,3.25rem)] leading-none ${tone === "light" ? "text-paper" : "text-ink"}`}
+      >
         {project.location}
       </h3>
       <p
@@ -62,7 +65,13 @@ function FeatureProject({ project }: { project: OngoingProject }) {
   return (
     <article aria-labelledby="ongoing-0" className="grid gap-8 lg:grid-cols-12 lg:gap-10">
       <div className="relative lg:col-span-8">
-        <ParallaxImage src={cover.src} alt={cover.alt} sizes="(min-width: 1024px) 62vw, 100vw" radius="2rem" className="aspect-[4/3] w-full sm:aspect-[16/10]" />
+        <ParallaxImage
+          src={cover.src}
+          alt={cover.alt}
+          sizes="(min-width: 1024px) 62vw, 100vw"
+          radius="2rem"
+          className="aspect-[4/3] w-full sm:aspect-[16/10]"
+        />
         <LiveChip className="absolute left-4 top-4" />
       </div>
       <div className="flex flex-col justify-between gap-8 lg:col-span-4">
@@ -95,9 +104,18 @@ function FeatureProject({ project }: { project: OngoingProject }) {
 function PhotoProject({ project, index }: { project: OngoingProject; index: number }) {
   const [cover] = project.pictures;
   return (
-    <article aria-labelledby={`ongoing-${index}`} className="grid h-full gap-6 rounded-[2rem] border border-line bg-paper p-4 sm:grid-cols-2 sm:p-5">
+    <article
+      aria-labelledby={`ongoing-${index}`}
+      className="grid h-full gap-6 rounded-[2rem] border border-line bg-paper p-4 sm:grid-cols-2 sm:p-5"
+    >
       <div className="relative">
-        <ParallaxImage src={cover.src} alt={cover.alt} sizes="(min-width: 1024px) 34vw, (min-width: 640px) 60vw, 100vw" radius="1.5rem" className="aspect-[4/5] w-full" />
+        <ParallaxImage
+          src={cover.src}
+          alt={cover.alt}
+          sizes="(min-width: 1024px) 34vw, (min-width: 640px) 60vw, 100vw"
+          radius="1.5rem"
+          className="aspect-[4/5] w-full"
+        />
         <LiveChip className="absolute left-3 top-3" />
       </div>
       <Reveal className="flex flex-col justify-center px-2 pb-4 sm:px-0 sm:pb-0 sm:pr-4">
@@ -127,26 +145,37 @@ function PendingProject({ project, index }: { project: OngoingProject; index: nu
  * PROJECTS — the company's track record (count-up figures), the sites under
  * construction right now with real photographs, and the Saidapet legacy.
  */
-export default function ProjectsSection() {
+export default function ProjectsSection({ standalone = false }: { standalone?: boolean }) {
   const [feature, ...others] = ONGOING;
 
   return (
-    <section id="projects" aria-labelledby="projects-title" className="scroll-mt-16 bg-surface py-24 md:py-36">
+    <section
+      id="projects"
+      aria-labelledby={standalone ? undefined : "projects-title"}
+      aria-label={standalone ? "Our projects" : undefined}
+      className={`scroll-mt-16 bg-surface ${standalone ? "pb-24 pt-4 md:pb-32" : "py-24 md:py-36"}`}
+    >
       <div className="container-site">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
-            <Reveal>
-              <SectionLabel>{PROJECTS_INTRO.label}</SectionLabel>
+        {/* On /projects the page hero carries the heading. */}
+        {!standalone && (
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-7">
+              <Reveal>
+                <SectionLabel>{PROJECTS_INTRO.label}</SectionLabel>
+              </Reveal>
+              <SplitText id="projects-title" text={PROJECTS_INTRO.title} className="mt-7 font-display heading-xl text-ink" />
+            </div>
+            <Reveal delay={120} className="lg:col-span-4 lg:col-start-9">
+              <p className="max-w-[34rem] text-lg leading-relaxed text-slate">{PROJECTS_INTRO.body}</p>
+              <Button href="/projects" label="All projects" variant="outline" size="sm" className="mt-6" />
             </Reveal>
-            <SplitText id="projects-title" text={PROJECTS_INTRO.title} className="mt-7 font-display heading-xl text-ink" />
           </div>
-          <Reveal delay={120} className="lg:col-span-4 lg:col-start-9">
-            <p className="max-w-[34rem] text-lg leading-relaxed text-slate">{PROJECTS_INTRO.body}</p>
-          </Reveal>
-        </div>
+        )}
 
         {/* Track record */}
-        <dl className="mt-14 grid gap-px overflow-hidden rounded-[2rem] border border-line bg-line sm:grid-cols-3 md:mt-20">
+        <dl
+          className={`grid gap-px overflow-hidden rounded-[2rem] border border-line bg-line sm:grid-cols-3 ${standalone ? "" : "mt-14 md:mt-20"}`}
+        >
           {TRACK_RECORD.stats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 90} className="flex flex-col-reverse gap-3 bg-paper p-7 md:p-9">
               <dt className="eyebrow text-slate">{stat.label}</dt>

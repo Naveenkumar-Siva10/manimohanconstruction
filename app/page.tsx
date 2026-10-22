@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import HeroSection from "@/components/HeroSection";
 import MarqueeBand from "@/components/MarqueeBand";
 import AboutSection from "@/components/AboutSection";
@@ -6,7 +7,10 @@ import GoalsSection from "@/components/GoalsSection";
 import VisionSection from "@/components/VisionSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
-import SiteFooter from "@/components/SiteFooter";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
@@ -21,7 +25,6 @@ export default function Home() {
         <ProjectsSection />
         <ContactSection />
       </main>
-      <SiteFooter />
     </>
   );
 }

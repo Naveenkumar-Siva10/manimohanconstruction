@@ -19,7 +19,7 @@ const HIGHLIGHT = new Set(["dream", "quality,", "trust", "care."]);
  * MMC mark drifts and turns slowly behind it. All writes go straight to
  * element styles from the scroll hook; React never re-renders.
  */
-export default function VisionSection() {
+export default function VisionSection({ label = VISION.label }: { label?: string }) {
   const sectionRef = useRef<HTMLElement>(null);
   const wordRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const markRef = useRef<HTMLDivElement>(null);
@@ -58,7 +58,7 @@ export default function VisionSection() {
 
       <div className="container-site relative">
         <div className="flex flex-wrap items-center justify-between gap-6">
-          <SectionLabel tone="light">{VISION.label}</SectionLabel>
+          <SectionLabel tone="light">{label}</SectionLabel>
           <SplitText
             as="h2"
             id="vision-title"

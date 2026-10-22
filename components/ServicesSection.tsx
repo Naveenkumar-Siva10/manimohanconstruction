@@ -9,7 +9,9 @@ import SplitText from "@/components/ui/SplitText";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
-import { SERVICES, SERVICES_INTRO } from "@/lib/content";
+import Link from "next/link";
+import { SERVICES_INTRO } from "@/lib/content";
+import { SERVICES, serviceHref } from "@/lib/services";
 import { CTA } from "@/lib/site";
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -73,7 +75,10 @@ export default function ServicesSection() {
           <SplitText id="services-title" text={SERVICES_INTRO.title} className="mt-7 font-display heading-xl text-ink" />
           <Reveal delay={120}>
             <p className="mt-7 max-w-[34rem] text-lg leading-relaxed text-slate">{SERVICES_INTRO.body}</p>
-            <Button href={CTA.primary.href} label="Discuss your project" variant="outline" className="mt-8" />
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href="/services" label="All services" variant="outline" />
+              <Button href={CTA.primary.href} label="Discuss your project" variant="outline" icon={false} />
+            </div>
           </Reveal>
         </div>
 
@@ -117,29 +122,31 @@ export default function ServicesSection() {
             }
           >
             {SERVICES.map((service, i) => (
-              <li
-                key={service.title}
-                className={`group relative flex flex-col justify-between overflow-hidden rounded-[2rem] border border-line bg-paper p-7 transition-[background-color,border-color,transform] duration-500 ease-[var(--ease-expo)] hover:-translate-y-1.5 hover:border-ink hover:bg-ink md:p-8 ${
-                  horizontal ? "h-[min(28rem,58vh)] w-[22rem] xl:w-[24rem]" : "min-h-[15rem] gap-10"
-                }`}
-              >
-                <div className="flex items-start justify-between">
-                  <span className="font-display text-[3.5rem] leading-none text-outline text-ink/30 transition-colors duration-500 group-hover:text-blush">
-                    {pad(i + 1)}
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink transition-all duration-500 ease-[var(--ease-expo)] group-hover:-rotate-45 group-hover:border-blush group-hover:bg-blush"
-                  >
-                    <ArrowIcon />
-                  </span>
-                </div>
-                <div>
-                  <h3 className="font-display text-[1.6rem] leading-[1.1] tracking-[-0.03em] text-ink transition-colors duration-500 group-hover:text-paper">
-                    {service.title}
-                  </h3>
-                  <p className="mt-3 leading-relaxed text-slate transition-colors duration-500 group-hover:text-paper/70">{service.description}</p>
-                </div>
+              <li key={service.slug} className={horizontal ? "h-[min(28rem,58vh)] w-[22rem] xl:w-[24rem]" : ""}>
+                <Link
+                  href={serviceHref(service.slug)}
+                  className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] border border-line bg-paper p-7 transition-[background-color,border-color,transform] duration-500 ease-[var(--ease-expo)] hover:-translate-y-1.5 hover:border-ink hover:bg-ink md:p-8 ${
+                    horizontal ? "" : "min-h-[15rem] gap-10"
+                  }`}
+                >
+                  <div className="flex items-start justify-between">
+                    <span className="font-display text-[3.5rem] leading-none text-outline text-ink/30 transition-colors duration-500 group-hover:text-blush">
+                      {pad(i + 1)}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink transition-all duration-500 ease-[var(--ease-expo)] group-hover:-rotate-45 group-hover:border-blush group-hover:bg-blush"
+                    >
+                      <ArrowIcon />
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="font-display text-[1.6rem] leading-[1.1] tracking-[-0.03em] text-ink transition-colors duration-500 group-hover:text-paper">
+                      {service.title}
+                    </h3>
+                    <p className="mt-3 leading-relaxed text-slate transition-colors duration-500 group-hover:text-paper/70">{service.description}</p>
+                  </div>
+                </Link>
               </li>
             ))}
 

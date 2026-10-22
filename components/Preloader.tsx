@@ -6,6 +6,8 @@ import { COLORS, SITE } from "@/lib/site";
 
 /** Shortest time the intro plays, so the logo animation always completes. */
 const MIN_MS = 2300;
+/** Inner pages get a quicker version: visitors arriving from search want the content. */
+const MIN_MS_INNER = 1900;
 /** Never hold the visitor longer than this, even on a slow connection. */
 const MAX_MS = 6000;
 /** Length of the exit curtain (matches .preloader-panel in globals.css). */
@@ -34,7 +36,7 @@ export default function Preloader() {
   useEffect(() => {
     const root = document.documentElement;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const minMs = reduced ? 400 : MIN_MS;
+    const minMs = reduced ? 400 : location.pathname === "/" ? MIN_MS : MIN_MS_INNER;
     const start = performance.now();
     let loaded = document.readyState === "complete";
     let raf = 0;

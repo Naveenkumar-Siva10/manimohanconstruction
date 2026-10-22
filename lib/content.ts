@@ -91,48 +91,7 @@ export const SERVICES_INTRO = {
   } satisfies Picture,
 };
 
-export const SERVICES = [
-  {
-    title: "Individual house construction",
-    description: "Complete construction of independent homes, from foundation to final finish, built around your family's needs.",
-  },
-  {
-    title: "Residential building construction",
-    description: "Multi-unit residential buildings planned and built for lasting strength, comfort and value.",
-  },
-  {
-    title: "Apartment construction",
-    description: "Well-planned apartment projects with sound structure, efficient layouts and quality common areas.",
-  },
-  {
-    title: "Commercial building construction",
-    description: "Shops, offices and commercial spaces built to schedule, to standard and ready for business.",
-  },
-  {
-    title: "Home renovation and remodelling",
-    description: "Thoughtful upgrades that repair, refresh and modernise the home you already love.",
-  },
-  {
-    title: "Building extensions and additional floors",
-    description: "Structurally sound extensions and extra floors that add space without compromising safety.",
-  },
-  {
-    title: "Interior finishing and painting",
-    description: "Careful plastering, painting and finishing work that completes every room cleanly.",
-  },
-  {
-    title: "Tiles and flooring",
-    description: "Precise tile and flooring installation in a wide range of materials, laid to last.",
-  },
-  {
-    title: "Electrical and plumbing works",
-    description: "Safe, neatly executed electrical and plumbing installations for new builds and renovations.",
-  },
-  {
-    title: "Construction planning and project coordination",
-    description: "Clear planning, budgeting and site coordination that keep your project on track from start to handover.",
-  },
-];
+/* The service list itself lives in lib/services.ts. */
 
 export const GOALS_INTRO = {
   label: "03 — Our Goals",
@@ -248,3 +207,71 @@ export const MARQUEE = [
   "Extensions",
   "Interiors",
 ];
+
+/* --------------------------------------------------------------- shared */
+
+/** How a project runs, start to finish (About, Services and service pages). */
+export const PROCESS = {
+  label: "How We Work",
+  title: "Five steps from *idea* to handover",
+  steps: [
+    { title: "Talk to us", body: "Call, WhatsApp or send the form. Tell us about your plot, your plans and your budget." },
+    { title: "Site visit", body: "We visit the site, study the plot or building and understand exactly what you need." },
+    { title: "Clear estimate", body: "You get a transparent, written estimate with the scope, stages and schedule spelled out." },
+    { title: "Build, supervised daily", body: "Work begins with our team on site every day, checking materials, workmanship and safety." },
+    { title: "Checks & handover", body: "We inspect every room with you, fix what needs fixing and hand over a building you can trust." },
+  ],
+};
+
+/** Reasons to choose us — only claims the company can stand behind. */
+export const WHY_US = {
+  label: "Why Mani Mohan",
+  title: "Why families *trust* us",
+  items: [
+    { title: "27+ years, one family", body: "A family-run company that has built across Chennai for more than 27 years — and plans to for many more." },
+    { title: "100+ buildings", body: "Homes, apartments and commercial buildings, many of them still standing proudly in Saidapet." },
+    { title: "Daily supervision", body: "Our team is on site every working day. Nothing gets covered up before it's been checked." },
+    { title: "Transparent pricing", body: "Written estimates with clear stages. No surprise bills halfway through." },
+    { title: "Quality materials", body: "Good materials and skilled workmanship at every stage, from foundation to final coat of paint." },
+    { title: "One team, start to finish", body: "Structure, services and finishes under one roof — one point of contact for your whole project." },
+  ],
+};
+
+/** General questions (contact page; also used in FAQ structured data). */
+export const GENERAL_FAQ = [
+  { q: "Which areas do you work in?", a: "We build across Chennai. Our current sites are in Saidapet, Thoraipakkam and Kundrathur, and Saidapet is our home neighbourhood." },
+  { q: "How do I get started?", a: "Call or WhatsApp us, or send the enquiry form. We'll arrange a site visit, understand your needs and follow up with a written estimate." },
+  { q: "Do you give a written estimate?", a: "Yes. Transparent pricing is one of our core commitments — you'll get the scope, stages and costs in writing before work begins." },
+  { q: "Do you only build new houses?", a: "No. Alongside new homes, apartments and commercial buildings, we take on renovations, extensions, additional floors, finishing, tiling, electrical and plumbing work." },
+  { q: "Can I work with my own architect?", a: "Yes. We regularly build from drawings prepared by our clients' architects and structural engineers." },
+];
+
+/** About page */
+export const ABOUT_PAGE = {
+  label: "About Us",
+  title: "A family that has been *building* Chennai for 27+ years",
+  intro:
+    "Mani Mohan Construction is a family-run builder from Saidapet, Chennai. For more than 27 years we've built homes, apartments and commercial buildings with the same simple promise: quality work, honest prices and a building you can trust.",
+  story: {
+    title: "Our *story*",
+    paragraphs: [
+      "What began with our founder more than 27 years ago grew one building at a time — first in our own neighbourhood, then across Chennai. Today, around half the buildings around us in Saidapet carry our work.",
+      "Most of those 100+ buildings were finished long before every phone had a camera, so there's little of them online. What we have instead is a reputation passed from one family to the next.",
+      "Today the family carries our late founder's vision forward: building with quality, earning trust and treating every customer's project as if it were our own home.",
+    ],
+  },
+};
+
+/** Careers page */
+export const CAREERS = {
+  label: "Careers",
+  title: "Build your *career* with us",
+  intro:
+    "We're a family-run company that has kept building for 27+ years because of the people on our sites. If you take pride in good work, we'd like to hear from you.",
+  roles: [
+    { title: "Site engineers", body: "Civil engineers who want hands-on experience across houses, apartments and commercial buildings." },
+    { title: "Site supervisors", body: "Experienced supervisors who keep work safe, on schedule and to standard." },
+    { title: "Skilled tradespeople", body: "Masons, bar benders, carpenters, electricians, plumbers, tilers and painters." },
+  ],
+  note: "We don't list fixed openings — send your details and the kind of work you do, and we'll get in touch when there's a fit.",
+};
